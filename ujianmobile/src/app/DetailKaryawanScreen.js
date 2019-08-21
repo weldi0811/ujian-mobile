@@ -22,9 +22,9 @@ class DetailKaryawanScreen extends Component {
     state = {
         diary: this.props.navigation.getParam('data_diary'),
         edit : false,
-        editNama : '',
-        editUmur : '',
-        editJabatan : ''
+        editNama : this.props.navigation.getParam('data_diary').nama,
+        editUmur : this.props.navigation.getParam('data_diary').umur,
+        editJabatan : this.props.navigation.getParam('data_diary').jabatan
     }
 
     onEditButton = () => {
@@ -65,38 +65,14 @@ class DetailKaryawanScreen extends Component {
                     style: 'cancel',
                   },
                   {text: 'OK', onPress: async() => {
-                      if(this.state.editNama===''){
-                        await Fire.database().ref(`diary/${this.props.uid}/${this.state.diary.id}`)
-                    .update({
-                        nama: this.state.diary.nama,
-                        umur: this.state.editUmur,
-                        jabatan: this.state.editJabatan
-                    })
-                    }
-                    else if(this.state.editUmur===''){
-                        await Fire.database().ref(`diary/${this.props.uid}/${this.state.diary.id}`)
-                    .update({
-                        nama: this.state.editNama,
-                        umur: this.state.diary.umur,
-                        jabatan: this.state.editJabatan
-                    })
-                    }
-                    else if(this.state.editJabatan === ''){
-                        await Fire.database().ref(`diary/${this.props.uid}/${this.state.diary.id}`)
-                    .update({
-                        nama: this.state.editNama,
-                        umur: this.state.editUmur,
-                        jabatan: this.state.diary.jabatan
-                    })
-                    }
-                    else{
+                      
                         await Fire.database().ref(`diary/${this.props.uid}/${this.state.diary.id}`)
                     .update({
                         nama: this.state.editNama,
                         umur: this.state.editUmur,
                         jabatan: this.state.editJabatan
                     })
-                    }
+                    
                     this.props.navigation.goBack()
                     this.props.navigation.goBack()
                   }},
